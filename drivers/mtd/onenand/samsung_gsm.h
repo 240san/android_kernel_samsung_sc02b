@@ -61,7 +61,7 @@ struct mtd_partition s3c_partition_info[] = {
 	           able to change the other partition layout without moving it */
 		.name		= "radio",
 		.offset		= (1940*SZ_256K),
-		.size		= (64*SZ_256K), //2003
+		.size		= (72*SZ_256K), //2011
 	},
 	{
 		.name		= "datadata",
@@ -75,8 +75,8 @@ struct mtd_partition s3c_partition_info[] = {
 	           Currently, this is required for flashing the "boot" partition,
 	           as Samsung's stock bootloader expects BML partitions.*/
 		.name		= "reservoir",
-		.offset		= (2004*SZ_256K),
-		.size		= (44*SZ_256K), //2047
+		.offset		= (2012*SZ_256K),
+		.size		= (36*SZ_256K), //2047
 	},
 
 
