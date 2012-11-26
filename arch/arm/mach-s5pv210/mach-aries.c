@@ -106,6 +106,11 @@
 #undef pr_debug
 #define pr_debug pr_info
 
+#if (defined(CONFIG_SAMSUNG_GALAXYS) && !defined(CONFIG_SAMSUNG_GALASYS_SC02B)) || \
+    defined (CONFIG_SAMSUNG_GALAXYSB)
+#define GALAXY_HAS_FM_RADIO
+#endif
+
 struct class *sec_class;
 EXPORT_SYMBOL(sec_class);
 
@@ -1194,7 +1199,7 @@ static struct platform_device aries_s3c_device_i2c7 = {
 	.dev.platform_data	= &i2c7_platdata,
 };
 // For FM radio
-#if defined (CONFIG_SAMSUNG_GALAXYS) || defined (CONFIG_SAMSUNG_GALAXYSB)
+#if defined(GALAXY_HAS_FM_RADIO)
 static  struct  i2c_gpio_platform_data  i2c8_platdata = {
         .sda_pin                = GPIO_FM_SDA_28V,
         .scl_pin                = GPIO_FM_SCL_28V,
@@ -5078,7 +5083,7 @@ static struct platform_device *aries_devices[] __initdata = {
 	&aries_s3c_device_i2c5,  /* accel sensor */
 	&aries_s3c_device_i2c6,
 	&aries_s3c_device_i2c7,
-#if defined(CONFIG_SAMSUNG_GALAXYS) || defined (CONFIG_SAMSUNG_GALAXYSB)
+#if defined(GALAXY_HAS_FM_RADIO)
 	&s3c_device_i2c8,  /* si470x: fm radio */
 #endif
 	&s3c_device_i2c9,  /* max1704x:fuel_guage */
@@ -5433,7 +5438,7 @@ static void __init aries_machine_init(void)
 	fsa9480_gpio_init();
 	i2c_register_board_info(7, i2c_devs7, ARRAY_SIZE(i2c_devs7));
 
-#if defined (CONFIG_SAMSUNG_GALAXYS) || defined (CONFIG_SAMSUNG_GALAXYSB)
+#if defined(GALAXY_HAS_FM_RADIO)
 	/* fm radio */
 	i2c_register_board_info(8, i2c_devs8, ARRAY_SIZE(i2c_devs8));
 #endif
