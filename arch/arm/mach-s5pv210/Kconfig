@@ -314,6 +314,14 @@ config SAMSUNG_EPIC
 endchoice
 endif
 
+if SAMSUNG_GALAXYS
+config SAMSUNG_GALAXYS_SC02B
+	bool "select SC-02B"
+	depends on SAMSUNG_GALAXYS
+	help
+	 Select Samsung Galaxy S SC-02B
+endif
+
 config S5PV210_SETUP_FB
 	bool
 	depends on FB_S3C
