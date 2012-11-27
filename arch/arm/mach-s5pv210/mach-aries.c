@@ -4058,12 +4058,14 @@ static struct gpio_init_data aries_init_gpios[] = {
 #if defined(CONFIG_SAMSUNG_GALAXYS_SC02B)
 		.cfg	= S3C_GPIO_INPUT,
 		.val	= S3C_GPIO_SETPIN_NONE,
+		.pud	= S3C_GPIO_PULL_DOWN,
+		.drv	= S3C_GPIO_DRVSTR_1X,
 #else
 		.cfg	= S3C_GPIO_OUTPUT,
 		.val	= S3C_GPIO_SETPIN_ZERO,
-#endif
 		.pud	= S3C_GPIO_PULL_NONE,
 		.drv	= S3C_GPIO_DRVSTR_1X,
+#endif
 	}, {
 		.num	= S5PV210_MP03(6),
 		.cfg	= S3C_GPIO_INPUT,
@@ -4535,7 +4537,11 @@ static unsigned int aries_sleep_gpio_table[][3] = {
   	{ S5PV210_GPJ2(5), S3C_GPIO_SLP_PREV,   S3C_GPIO_PULL_NONE},	//GPIO_SUB_MICBIAS_EN
 #else
   	{ S5PV210_GPJ2(3), S3C_GPIO_SLP_INPUT,  S3C_GPIO_PULL_DOWN},	//GPIO_GPJ23
+#if defined(CONFIG_SAMSUNG_GALAXYS_SC02B)
+	{ S5PV210_GPJ2(4), S3C_GPIO_SLP_OUT0,   S3C_GPIO_PULL_NONE},    //GPIO_USIM_BOOT
+#else
   	{ S5PV210_GPJ2(4), S3C_GPIO_SLP_INPUT,  S3C_GPIO_PULL_UP},
+#endif
   	{ S5PV210_GPJ2(5), S3C_GPIO_SLP_PREV,   S3C_GPIO_PULL_NONE},	//GPIO_SUB_MICBIAS_EN
 #endif
 	{ S5PV210_GPJ2(6), S3C_GPIO_SLP_PREV,   S3C_GPIO_PULL_NONE},	//GPIO_EARPATH_SEL
@@ -5450,7 +5456,7 @@ static void __init aries_machine_init(void)
 	HWREV = HWREV | (gpio_get_value(GPIO_HWREV_MODE2) << 2);
 	s3c_gpio_cfgpin(GPIO_HWREV_MODE3, S3C_GPIO_INPUT);
 	s3c_gpio_setpull(GPIO_HWREV_MODE3, S3C_GPIO_PULL_NONE);
-#if defined(CONFIG_SAMSUNG_GALAXYSB) // ffosilva : OK
+#if defined(CONFIG_SAMSUNG_GALAXYSB) || defined(CONFIG_SAMSUNG_GALAXYS_SC02B) // ffosilva : OK
 	HWREV = 0xE;
 #else
 	HWREV = HWREV | (gpio_get_value(GPIO_HWREV_MODE3) << 3);
