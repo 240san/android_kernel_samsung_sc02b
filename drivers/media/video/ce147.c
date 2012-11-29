@@ -356,7 +356,7 @@ struct ce147_state {
 	int effect;
 	int wb;
 	struct tm *exifTimeInfo;
-#if defined(CONFIG_ARIES_NTT) || defined(CONFIG_SAMSUNG_FASCINATE)
+#if defined(CONFIG_SAMSUNG_GALAXYS_SC02B) || defined(CONFIG_SAMSUNG_FASCINATE)
 	int disable_aeawb_lock;
 #endif
 	int exif_ctrl;
@@ -2091,7 +2091,7 @@ static int ce147_set_capture_exif(struct v4l2_subdev *sd)
 
 	unsigned char ce147_gps_processing[130] = { 0x00, };
 	unsigned int ce147_reglen_gps_processing = 130;
-#if !defined(CONFIG_ARIES_NTT)
+#if !defined(CONFIG_SAMSUNG_GALAXYS_SC02B)
 	unsigned char ce147_str_model[9] = "GT-I9000\0";
 #elif defined(CONFIG_SAMSUNG_FASCINATE)
 	unsigned char ce147_str_model[9] = "SCH-I500\0";
@@ -3573,7 +3573,7 @@ static int ce147_set_touch_auto_focus(struct v4l2_subdev *sd,
 	unsigned char ce147_buf_set_touch_af[11] = { 0x00, };
 	unsigned int ce147_len_set_touch_af = 11;
 
-#if defined(CONFIG_ARIES_NTT) || defined(CONFIG_SAMSUNG_FASCINATE)/* Modify	NTTS1 */
+#if defined(CONFIG_SAMSUNG_GALAXYS_SC02B) || defined(CONFIG_SAMSUNG_FASCINATE)/* Modify	NTTS1 */
 	state->disable_aeawb_lock = 1;
 	err = ce147_set_awb_lock(sd, 0);
 	if (err < 0) {
@@ -3647,7 +3647,7 @@ static int ce147_set_focus_mode(struct v4l2_subdev *sd,
 		|| (ctrl->value == FOCUS_MODE_MACRO_DEFAULT)
 		|| (ctrl->value == FOCUS_MODE_AUTO_DEFAULT)) {
 		/* || (ctrl->value == FOCUS_MODE_FD_DEFAULT)) */
-#if defined(CONFIG_ARIES_NTT) || defined(CONFIG_SAMSUNG_FASCINATE)/* Modify	NTTS1 */
+#if defined(CONFIG_SAMSUNG_GALAXYS_SC02B) || defined(CONFIG_SAMSUNG_FASCINATE)/* Modify	NTTS1 */
 		ce147_msg(&client->dev, "%s: unlock\n", __func__);
 		state->disable_aeawb_lock = 0;
 		err = ce147_set_awb_lock(sd, 0);
@@ -4157,7 +4157,7 @@ static int ce147_finish_auto_focus(struct v4l2_subdev *sd)
 	int err;
 	struct ce147_state *state = to_state(sd);
 	struct i2c_client *client = v4l2_get_subdevdata(sd);
-#if defined(CONFIG_ARIES_NTT) || defined(CONFIG_SAMSUNG_FASCINATE)
+#if defined(CONFIG_SAMSUNG_GALAXYS_SC02B) || defined(CONFIG_SAMSUNG_FASCINATE)
 	if (!state->disable_aeawb_lock) {
 		err = ce147_set_awb_lock(sd, 1);
 		if (err < 0) {
