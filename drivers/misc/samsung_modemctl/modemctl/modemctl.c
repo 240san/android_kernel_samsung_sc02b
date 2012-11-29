@@ -217,9 +217,10 @@ static void msm_on(struct modemctl *mc)
 		return;
 
 	gpio_set_value(mc->gpio_pda_active, 0);
-	//gpio_set_value(mc->gpio_phone_on, 0);
-	//gpio_set_value(mc->gpio_cp_reset, 0);
-	//msleep(500);
+	gpio_set_value(mc->gpio_phone_on, 0);
+	gpio_set_value(mc->gpio_cp_reset, 0);
+	msleep(500);
+
 	gpio_set_value(mc->gpio_phone_on, 1);
 	msleep(30);
 	gpio_set_value(mc->gpio_cp_reset, 1);
