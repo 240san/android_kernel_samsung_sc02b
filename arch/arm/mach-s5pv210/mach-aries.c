@@ -1447,6 +1447,10 @@ static void set_shared_mic_bias(void)
         gpio_set_value(GPIO_MICBIAS_EN, wm8994_mic_bias);
     }
     gpio_set_value(GPIO_EARPATH_SEL, jack_mic_bias);
+#elif defined(CONFIG_SAMSUNG_GALAXYS_SC02B)
+  gpio_set_value(GPIO_MICBIAS_EN, wm8994_mic_bias);
+  gpio_set_value(GPIO_SUB_MICBIAS_EN, jack_mic_bias);
+  gpio_set_value(GPIO_EARPATH_SEL, wm8994_mic_bias || jack_mic_bias);
 #else
 	gpio_set_value(GPIO_MICBIAS_EN, wm8994_mic_bias || jack_mic_bias);
     gpio_set_value(GPIO_EARPATH_SEL, wm8994_mic_bias || jack_mic_bias);
@@ -5364,7 +5368,10 @@ static void __init sound_init(void)
         gpio_request(GPIO_MICBIAS_EN, "micbias_enable");
     }
 #else
-	gpio_request(GPIO_MICBIAS_EN, "micbias_enable");
+  gpio_request(GPIO_MICBIAS_EN, "micbias_enable");
+#if defined(CONFIG_SAMSUNG_GALAXYS_SC02B)
+  gpio_request(GPIO_SUB_MICBIAS_EN, "sub_micbias_enable");
+#endif
 #endif
 }
 
