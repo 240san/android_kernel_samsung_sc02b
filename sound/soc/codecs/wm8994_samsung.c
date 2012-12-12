@@ -132,8 +132,10 @@ select_route universal_wm8994_voicecall_paths[] = {
 	wm8994_disable_path, wm8994_set_voicecall_receiver,
 	wm8994_set_voicecall_speaker, wm8994_set_voicecall_headset,
 	wm8994_set_voicecall_headphone, wm8994_set_voicecall_bluetooth,
+#ifndef CONFIG_SAMSUNG_GALAXYS_SC02B
 	wm8994_set_voicecall_tty_vco, wm8994_set_voicecall_tty_hco,
 	wm8994_set_voicecall_tty_full,
+#endif
 };
 
 select_mic_route universal_wm8994_mic_paths[] = {

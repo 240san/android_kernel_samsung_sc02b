@@ -75,6 +75,10 @@ Codec Output Path BIT
 #define PLAYBACK_RING_SPK_HP	(0x01 << 8)
 #define PLAYBACK_HP_NO_MIC  (0x01 << 9)
 #define PLAYBACK_EXTRA_DOCK_SPEAKER (0x01 << 10)
+#define PLAYBACK_VOIP_RCV (0x01 << 11)
+#define PLAYBACK_VOIP_SPK (0x01 << 12)
+#define PLAYBACK_VOIP_HP  (0x01 << 13)
+#define PLAYBACK_VOIP_BT  (0x01 << 14)
 
 #define VOICECALL_RCV		(0x01 << 1)
 #define VOICECALL_SPK		(0x01 << 2)
@@ -103,7 +107,11 @@ Codec Output Path BIT
 #define FMRADIO_SPK_HP		(0x01 << 3)
 
 #define PLAYBACK_GAIN_CDMA_NUM 48
+#ifdef CONFIG_SAMSUNG_GALAXYS_SC02B
+#define PLAYBACK_GAIN_NUM 48
+#else
 #define PLAYBACK_GAIN_NUM 43
+#endif
 
 #define VOICECALL_GAIN_NUM 38
 #define RECORDING_GAIN_NUM 32
@@ -183,6 +191,7 @@ struct wm8994_priv {
 	struct clk *codec_clk;
 	int gain_code;
 	u16 dc_servo[3];
+	int testmode_config_flag;
 };
 
 struct gain_info_t {
