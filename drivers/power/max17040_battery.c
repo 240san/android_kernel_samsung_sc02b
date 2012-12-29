@@ -124,7 +124,7 @@ static void max17040_get_vcell(struct i2c_client *client)
 	chip->vcell = (msb << 4) + (lsb >> 4);
 }
 
-#if defined(CONFIG_ARIES_NTT)
+#if defined(CONFIG_SAMSUNG_GALAXYS_SC02B)
 static unsigned int prevFGSOC = 0;
 static unsigned int fg_zero_count = 0;
 static void max17040_get_soc(struct i2c_client *client)
