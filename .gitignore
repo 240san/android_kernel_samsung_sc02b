@@ -36,7 +36,6 @@ modules.builtin
 #
 # Top-level generic files
 #
-/build
 /tags
 /TAGS
 /linux
@@ -76,6 +75,11 @@ GPATH
 GRTAGS
 GSYMS
 GTAGS
+
+# custom
+out
+*.log
+zImage
 
 *.orig
 *~
